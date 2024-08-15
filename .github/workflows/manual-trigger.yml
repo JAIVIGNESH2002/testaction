@@ -1,0 +1,15 @@
+name: Display Email ID on Manual Trigger
+
+on:
+  workflow_dispatch:
+
+jobs:
+  display-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Display Email ID
+        run: echo "The email ID of the user who triggered this action is ${{ github.actor }}"
