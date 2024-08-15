@@ -1,15 +1,16 @@
-name: Display Email ID on Manual Trigger
+name: Get User Email
 
 on:
   workflow_dispatch:
 
 jobs:
-  display-email:
+  get_email:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Display Email ID
-        run: echo "The email ID of the user who triggered this action is ${{ github.actor }}"
+      - name: Print User Email
+        run: echo "User Email: ${{ github.event.inputs.email }}"
+        # If you want to retrieve the email from GitHub API
+      - name: Get User Email from GitHub API
+        run: |
+          USER_EMAIL=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/user | jq -r '.email')
+          echo "User Email: $USER_EMAIL"
